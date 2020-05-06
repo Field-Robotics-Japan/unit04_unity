@@ -35,6 +35,3 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
-
-# Assets installed from Assets Store
-RosSharp
