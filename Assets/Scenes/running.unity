@@ -657,7 +657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cf09ecb17efba9459a691ba8a4bda9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Topic: velodyne
+  Topic: velodyne_packets
   FrameId: velodyne
   numDataBlocks: 12
 --- !u!1001 &1834194366728725521
