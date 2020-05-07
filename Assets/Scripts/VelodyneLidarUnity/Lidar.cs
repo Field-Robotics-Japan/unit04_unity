@@ -53,7 +53,7 @@ void FixedUpdate () {
                 }
                 else
                 {
-                    distances[indx] = 100.0f;
+                    distances[indx] = maxRange;
                 }
             }
         }
