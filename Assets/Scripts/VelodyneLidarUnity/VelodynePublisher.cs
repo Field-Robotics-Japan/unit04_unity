@@ -36,6 +36,7 @@ namespace RosSharp.RosBridgeClient
         private void InitializeMessage()
         {
             message = new MessageTypes.Velodyne.VelodyneScan();
+            packet = new MessageTypes.Velodyne.VelodynePacket();
             message.header.frame_id = FrameId;
         }
 
@@ -116,7 +117,7 @@ namespace RosSharp.RosBridgeClient
             return result;
         }
 
-        private void UpdateMessage()
+        private void Update()
         {
             Boolean cont = true;
             int idx = 0;
