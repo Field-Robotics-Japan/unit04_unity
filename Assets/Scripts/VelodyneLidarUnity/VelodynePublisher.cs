@@ -10,6 +10,7 @@ namespace RosSharp.RosBridgeClient
         private MessageTypes.Velodyne.VelodynePacket packet;
         private int[] laserIdxs1 = { 0,8 ,1,9, 2,10, 3,11, 4,12, 5,13, 6,14,  7, 15};
         public int numDataBlocks = 12;
+        private int direction;
         public static DateTime UNIX_EPOCH = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
 
         public virtual MessageTypes.Std.Time Now()
@@ -31,6 +32,7 @@ namespace RosSharp.RosBridgeClient
             base.Start();
             lidar = gameObject.GetComponent<Lidar>();
             InitializeMessage();
+            direction = 0;
         }
 
         private void InitializeMessage()
@@ -131,13 +133,19 @@ namespace RosSharp.RosBridgeClient
                 Array.Resize(ref message.packets, message.packets.Length + 1);
                 message.packets[message.packets.Length - 1] = packet;
                 idx = idx + azIncrPerMsg;
-                if (idx > (lidar.numberOfIncrements-1))
+                // if (idx > (lidar.numberOfIncrements-1))
+                // {
+                //     idx = idx - lidar.numberOfIncrements;
+                //     cont = false;
+                // }
+                if (idx > (direction-1))
                 {
-                    idx = idx - lidar.numberOfIncrements;
+                    idx = idx - direction;
                     cont = false;
                 }
             }
-
+            direction++;
+            if (direction > 360) direction = 0;
             message.header.stamp = Now();
             Publish(message);
         }
