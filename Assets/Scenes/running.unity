@@ -514,6 +514,8 @@ GameObject:
   - component: {fileID: 1779710249}
   - component: {fileID: 1779710248}
   - component: {fileID: 1779710247}
+  - component: {fileID: 1779710254}
+  - component: {fileID: 1779710253}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -528,7 +530,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1779710246}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f13aa18ca716d841978f7821bcb3921, type: 3}
   m_Name: 
@@ -627,6 +629,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1779710253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779710246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff98778ae051cfd40a6e4effdf851ebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SecondsTimeout: 10
+  Serializer: 0
+  protocol: 0
+  RosBridgeServerUrl: ws://localhost:9090
+--- !u!114 &1779710254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779710246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cf09ecb17efba9459a691ba8a4bda9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: velodyne
+  FrameId: velodyne
+  numDataBlocks: 12
 --- !u!1001 &1834194366728725521
 PrefabInstance:
   m_ObjectHideFlags: 0
