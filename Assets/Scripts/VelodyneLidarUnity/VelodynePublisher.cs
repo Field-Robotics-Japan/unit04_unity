@@ -137,10 +137,9 @@ namespace RosSharp.RosBridgeClient
                     idx = idx - lidar.numberOfIncrements;
                     cont = false;
                 }
+                message.header.stamp = packet.stamp;
+                Publish(message);
             }
-
-            message.header.stamp = Now();
-            Publish(message);
         }
     }
 }
