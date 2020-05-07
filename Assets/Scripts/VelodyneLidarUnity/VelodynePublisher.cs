@@ -1,18 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
+﻿using System;
 
 namespace RosSharp.RosBridgeClient
 {
     public class VelodynePublisher : UnityPublisher<MessageTypes.Velodyne.VelodyneScan>
     {
         private Lidar lidar;
-        public string FrameId = "/velodyne_msgs";
+        public string FrameId = "velodyne";
         private MessageTypes.Velodyne.VelodyneScan message;
         private MessageTypes.Velodyne.VelodynePacket packet;
         private int[] laserIdxs1 = { 0,8 ,1,9, 2,10, 3,11, 4,12, 5,13, 6,14,  7, 15};
-        public int numDataBLocks = 12;
+        public int numDataBlocks = 12;
+        public static DateTime UNIX_EPOCH = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+
+        public virtual MessageTypes.Std.Time Now()
+        {
+            TimeSpan timeSpan = DateTime.Now.ToUniversalTime() - UNIX_EPOCH;
+
+            double msecs = timeSpan.TotalMilliseconds;
+            uint sec = (uint)(msecs / 1000);
+
+            return new MessageTypes.Std.Time
+            {
+                secs = sec,
+                nsecs = (uint)((msecs / 1000 - sec) * 1e+9)
+            };
+        }
 
         protected override void Start()
         {
@@ -108,12 +120,12 @@ namespace RosSharp.RosBridgeClient
         {
             Boolean cont = true;
             int idx = 0;
-            int azIncrPerMsg = 2 * numDataBLocks;
+            int azIncrPerMsg = 2 * numDataBlocks;
             while (cont)
             {          
                 //Debug.Log("start with IDx "+idx+" at "+Time.time);
                 packet.data = Serialize(lidar.distances, lidar.azimuts, idx, lidar.numberOfLayers, lidar.numberOfIncrements);
-                message.packets = packet;
+                message.packets[0] = packet;
                 idx = idx + azIncrPerMsg;
                 if (idx > (lidar.numberOfIncrements-1))
                 {
@@ -122,6 +134,7 @@ namespace RosSharp.RosBridgeClient
                 }
             }
 
+            message.header.stamp = Now();
             Publish(message);
         }
     }
