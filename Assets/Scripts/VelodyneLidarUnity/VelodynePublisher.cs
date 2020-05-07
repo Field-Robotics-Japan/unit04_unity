@@ -127,8 +127,6 @@ namespace RosSharp.RosBridgeClient
             Array.Resize(ref message.packets, 0);
             packets.Clear();
             while (cont)
-            {          
-                //Debug.Log("start with IDx "+idx+" at "+Time.time);
             {
                 MessageTypes.Velodyne.VelodynePacket packet = new MessageTypes.Velodyne.VelodynePacket();
                 packet.data = Serialize(lidar.distances, lidar.azimuts, idx, lidar.numberOfLayers, lidar.numberOfIncrements);
