@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace RosSharp.RosBridgeClient
 {
@@ -7,7 +8,7 @@ namespace RosSharp.RosBridgeClient
         private Lidar lidar;
         public string FrameId = "velodyne";
         private MessageTypes.Velodyne.VelodyneScan message;
-        private MessageTypes.Velodyne.VelodynePacket packet;
+        private List<MessageTypes.Velodyne.VelodynePacket> packets;
         private int[] laserIdxs1 = { 0,8 ,1,9, 2,10, 3,11, 4,12, 5,13, 6,14,  7, 15};
         public int numDataBlocks = 12;
         public static DateTime UNIX_EPOCH = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
@@ -36,8 +37,8 @@ namespace RosSharp.RosBridgeClient
         private void InitializeMessage()
         {
             message = new MessageTypes.Velodyne.VelodyneScan();
-            packet = new MessageTypes.Velodyne.VelodynePacket();
             message.header.frame_id = FrameId;
+            packets = new List<MessageTypes.Velodyne.VelodynePacket>();
         }
 
         public byte[] makeAzimuthBytes(float az)
@@ -124,22 +125,25 @@ namespace RosSharp.RosBridgeClient
             int azIncrPerMsg = 2 * numDataBlocks;
             message.packets.Initialize();
             Array.Resize(ref message.packets, 0);
+            packets.Clear();
             while (cont)
             {          
                 //Debug.Log("start with IDx "+idx+" at "+Time.time);
+            {
+                MessageTypes.Velodyne.VelodynePacket packet = new MessageTypes.Velodyne.VelodynePacket();
                 packet.data = Serialize(lidar.distances, lidar.azimuts, idx, lidar.numberOfLayers, lidar.numberOfIncrements);
                 packet.stamp = Now();
-                Array.Resize(ref message.packets, message.packets.Length + 1);
-                message.packets[message.packets.Length - 1] = packet;
+                packets.Add(packet);
                 idx = idx + azIncrPerMsg;
                 if (idx > (lidar.numberOfIncrements - 1))
                 {
                     idx = idx - lidar.numberOfIncrements;
                     cont = false;
                 }
-                message.header.stamp = packet.stamp;
-                Publish(message);
             }
+            message.header.stamp = Now();
+            message.packets = packets.ToArray();
+            Publish(message);
         }
     }
 }
