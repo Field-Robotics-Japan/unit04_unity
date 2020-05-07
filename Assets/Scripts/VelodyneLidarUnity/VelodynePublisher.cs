@@ -126,7 +126,8 @@ namespace RosSharp.RosBridgeClient
             {          
                 //Debug.Log("start with IDx "+idx+" at "+Time.time);
                 packet.data = Serialize(lidar.distances, lidar.azimuts, idx, lidar.numberOfLayers, lidar.numberOfIncrements);
-                message.packets[0] = packet;
+                Array.Resize(ref message.packets, message.packets.Length + 1);
+                message.packets[message.packets.Length - 1] = packet;
                 idx = idx + azIncrPerMsg;
                 if (idx > (lidar.numberOfIncrements-1))
                 {
