@@ -46,7 +46,7 @@ void FixedUpdate () {
                 dir = transform.rotation * Quaternion.Euler(-angle, azimuts[incr], 0)*fwd;
                 // print("idx "+ indx +" angle " + angle + "  azimut " + azimut + " quats " + Quaternion.Euler(-angle, azimut, 0) + " dir " + dir+ " fwd " + fwd+"\n");
 
-                Debug.DrawRay(transform.position, dir * 100.0f, Color.green);
+                //Debug.DrawRay(transform.position, dir * 100.0f, Color.green);
                 if (Physics.Raycast(transform.position, dir, out hit, maxRange))
                 {
                     distances[indx] = (float)hit.distance;
