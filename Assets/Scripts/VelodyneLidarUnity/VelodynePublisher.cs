@@ -122,6 +122,8 @@ namespace RosSharp.RosBridgeClient
             Boolean cont = true;
             int idx = 0;
             int azIncrPerMsg = 2 * numDataBlocks;
+            message.packets.Initialize();
+            Array.Resize(ref message.packets, 0);
             while (cont)
             {          
                 //Debug.Log("start with IDx "+idx+" at "+Time.time);
