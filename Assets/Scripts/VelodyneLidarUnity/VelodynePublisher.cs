@@ -132,7 +132,7 @@ namespace RosSharp.RosBridgeClient
                 Array.Resize(ref message.packets, message.packets.Length + 1);
                 message.packets[message.packets.Length - 1] = packet;
                 idx = idx + azIncrPerMsg;
-                if (idx > (lidar.numberOfIncrements-1))
+                if (idx > (lidar.numberOfIncrements - 1))
                 {
                     idx = idx - lidar.numberOfIncrements;
                     cont = false;
