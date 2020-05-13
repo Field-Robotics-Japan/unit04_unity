@@ -9,11 +9,33 @@ The following sensors are added.
 - RGB Camera
 
 # How to use
-## 1. Launch rosbridge
+## 1. Launch ROS packages
+#### 1-1 rosbridge
 Launch the `rosbridge` with following command.
 ```bash
 $ roslaunch rosbridge_server rosbridge_websocket.launch address:=localhost
 ```
+#### 1-2 velodyne_pointcloud
+Launch the `velodyne_pointcloud` package with following launch file.  
+Please create launch file by copy and paste following script.
+```xml
+<launch>
+  <arg name="calibration" default="$(find velodyne_pointcloud)/params/VLP16db.yaml" />
+  <arg name="manager" default="velodyne_pointcloud" />
+  <arg name="max_range" default="100.0" />
+  <arg name="min_range" default="0.9" />
+
+  <node pkg="velodyne_pointcloud" type="cloud_node" name="$(arg manager)">
+    <param name="model" value="VLP16"/>
+    <param name="calibration" value="$(arg calibration)"/>
+    <param name="max_range" value="$(arg max_range)"/>
+    <param name="min_range" value="$(arg min_range)"/>
+    <!-- <param name="view_direction" value="0"/> -->
+    <!-- <param name="view_width" value="360"/> -->
+  </node>
+</launch>
+```
+
         
 ## 2. Clone and run on Unity
 #### 2-1
