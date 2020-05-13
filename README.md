@@ -10,17 +10,15 @@ The following sensors are added.
 
 # How to use
 ## 1. Launch rosbridge
-    Launch the `rosbridge` with following command.
-    
+Launch the `rosbridge` with following command.
 ```bash
 $ roslaunch rosbridge_server rosbridge_websocket.launch address:=localhost
 ```
         
 ## 2. Clone and run on Unity
 #### 2-1
-    Just to clone this repo with `git clone` command.
+Just to clone this repo with `git clone` command.
 #### 2-2
-    Then, open the project file with UnityHub.
+Then, open the project file with UnityHub.
 #### 2-3
-    Finally, RUN the scene file named `unit04_test`.
-    
+Finally, RUN the scene file named `unit04_test`.
