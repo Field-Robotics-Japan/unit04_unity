@@ -521,7 +521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Topic: /diff_drive_controller/cmd_vel
-  TimeStep: 1
+  TimeStep: 0.04
   type: 1
   WheelRadius: 0.20316
   WheelSeparation: 0.43515
@@ -822,7 +822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Topic: /diff_drive_controller/cmd_vel
-  TimeStep: 1
+  TimeStep: 0.04
   type: 0
   WheelRadius: 0.20316
   WheelSeparation: 0.43515
@@ -2467,6 +2467,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3995984147603515798}
     m_Modifications:
+    - target: {fileID: 7367901733237620756, guid: e9a4c88a81229c7f39c3b861e9b9e59b,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7367901733237620759, guid: e9a4c88a81229c7f39c3b861e9b9e59b,
         type: 3}
       propertyPath: m_Name
