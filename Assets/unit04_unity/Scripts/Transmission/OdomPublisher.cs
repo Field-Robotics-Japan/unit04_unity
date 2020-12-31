@@ -20,7 +20,6 @@ namespace RosSharp.RosBridgeClient
         private HingeJoint rightHinge;
         private HingeJoint leftHinge;
         private MessageTypes.Nav.Odometry message;
-        private MessageTypes.Std.Time lastStamp;
         private float x;
         private float y;
         private float yaw;
@@ -43,7 +42,6 @@ namespace RosSharp.RosBridgeClient
             rightHinge = rightWheel.GetComponent<HingeJoint>();
             leftHinge = leftWheel.GetComponent<HingeJoint>();
             message = new MessageTypes.Nav.Odometry();
-            lastStamp = new MessageTypes.Std.Time();
             InitializeMessage();
         }
 
@@ -54,9 +52,7 @@ namespace RosSharp.RosBridgeClient
 
         private void UpdateMessage()
         {
-            lastStamp = message.header.stamp;
             message.header.Update();
-            // float dt = (float)(message.header.stamp.secs - lastStamp.secs + (message.header.stamp.nsecs - lastStamp.nsecs) * 1e-9);
             float dt = Time.deltaTime;
             float omegaL = leftHinge.velocity * Mathf.Deg2Rad;// [rad/s]
             float omegaR = rightHinge.velocity * Mathf.Deg2Rad;// [rad/s]
